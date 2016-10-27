@@ -41,7 +41,7 @@ Type float (32-bit)
 31 08 2c 3d
 Contents of float
 0011 0001  0000 1000  0010 1100  0011 1101
-Stored least-significant first, so
+Stored least-significant byte first, so in MSB-first that would be
 00111101 00101100 00001000 00110001
 0: Sign
 01111010: Exponent + 127, so exponent = -5
