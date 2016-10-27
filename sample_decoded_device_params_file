@@ -1,5 +1,6 @@
 A sample protobuf file, with the associated decoding.
-The protobuf file would consist solely of the actual bytes, but are here being represented by lines of hexadecimal for ease of reading.
+The protobuf file would consist solely of the actual bytes, 
+but these are being represented here by lines of hexadecimal for ease of reading.
 
 35 58 7a 2b 00 00 00 
 Prefix. Seems to be the same in every file.
