@@ -1,0 +1,114 @@
+A sample protobuf file, with the associated decoding.
+The protobuf file would consist solely of the actual bytes, 
+but these are being represented here by lines of hexadecimal for ease of reading.
+
+35 58 7a 2b 00 00 00 
+Prefix. Seems to be the same in every file.
+
+5c
+Varint indicating the length of the remainder of the file: 92 bytes.
+
+0a 
+Tag for the first field. Bits: 00001 010  
+First five indicate field #1: Manufacturer's name
+Latter three indicate field type 2 = length-delimited (string)
+
+12
+Varint indicating the length of the string: 18 bytes.
+
+4e 69 63 68 6f 6c 61 73 20 48 61 6c 64 65 72 6d 61 6e 
+ N  i  c  h  o  l  a  s     H  a  l  d  e  r  m  a  n
+ 
+12 
+Tag for the next field. Bits: 00010 010
+Field #2: device name, type string
+
+19 
+Varint for length of string: 25 bytes
+
+
+4d 69 6e 6b 61 6e 61 6b 2f 50 6f 70 54 65 63 68 20 4c 65 6e 73 65 73 20 31 
+ M  i  n  k  a  n  a  k  /  P  o  p  t  e  c  h     l  e  n  s  e  s     1
+
+1d
+Tag for next field. Bits: 00011 101
+Field #3: Screen-to-lens distance
+Type float (32-bit)
+1 bit for sign
+8 bits for exponent
+23 bits for significand
+
+31 08 2c 3d
+Contents of float
+0011 0001  0000 1000  0010 1100  0011 1101
+Stored least-significant byte first, so in MSB-first that would be
+00111101 00101100 00001000 00110001
+0: Sign
+01111010: Exponent + 127, so exponent = -5
+01011000000100000110001: significand, implicit 1. at beginning
+1.01011000000100000110001 = 1.34399998188
+1.343 etc. x 2^-5 = 0.042
+So, 42mm
+
+25
+Tag for next field. Bits: 00100 101
+Field #4: Inter-lens distance
+Type float (32-bit)
+
+d5 78 69 3d 
+(Omitting decoding here for brevity)
+Decodes to 0.057
+57mm
+
+2a 
+Tag for next field. Bits: 00101 010
+Field #5: Left Eye field of View Angles
+Type: Length-delimited (packed repeated fields)
+All fields are of type float, but length is given in bytes
+(since if the field is not defined in some version of the buffer, byte length is required to succesfully skip the field)
+
+10
+Length of packed group: 16 bytes
+
+00 00 00 42 
+Decodes to 32
+
+00 00 24 42 
+Decodes to 41
+
+00 00 18 42 
+Decodes to 38
+
+00 00 1c 42 
+Decodes to 39
+
+35 
+Tag for next field. Bits: 00110 101
+Field #6: Tray-to-lens distance
+Type float (32-bit)
+
+6f 12 03 3d
+Decodes to 0.032
+32mm
+
+3a 
+Tag for next field. Bits: 00111 010
+Field #7: Distortion coefficients
+Type: length-delimited (packed repeated floats)
+
+08 
+Length of packed group: 8 bytes
+
+c3 f5 a8 3e
+Decodes to 0.33
+
+7b 14 ae 3e 
+Decodes to 0.34
+
+58
+Tag. Bits: 01011 000
+Field #11: Vertical Alignment Type
+Type: Varint
+
+00
+Vertical alignment type 0 (bottom)
