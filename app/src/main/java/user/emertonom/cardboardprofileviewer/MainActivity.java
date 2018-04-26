@@ -7,13 +7,14 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
-import android.view.View;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+                                           @NonNull String permissions[], @NonNull int[] grantResults) {
         Log.d("emertonom", "Received result of permission request");
         switch (requestCode) {
             case REQUEST_WRITE_PERMISSON: {
@@ -76,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
                     dlg.create();
                     dlg.show();
                 }
-                return;
             }
 
             // other 'case' lines to check for other
@@ -159,54 +159,54 @@ public class MainActivity extends AppCompatActivity {
 
             // vendorText
             if (deviceParams.hasVendor()) {
-                TextView vendorText = (TextView) findViewById(R.id.vendorText);
+                TextView vendorText = findViewById(R.id.vendorText);
                 vendorText.setText(deviceParams.getVendor());
             }
 
             // modelText
             if (deviceParams.hasModel()) {
-                TextView modelText = (TextView) findViewById(R.id.modelText);
+                TextView modelText = findViewById(R.id.modelText);
                 modelText.setText(deviceParams.getModel());
             }
 
             // screenToLensText
             if (deviceParams.hasScreenToLensDistance()) {
-                TextView screenToLensText = (TextView) findViewById(R.id.screenToLensText);
+                TextView screenToLensText = findViewById(R.id.screenToLensText);
                 float screenToLensFloat = deviceParams.getScreenToLensDistance();
                 screenToLensText.setText(screenToLensFloat * 1000 + "mm");
             }
 
             // interlensText
             if (deviceParams.hasInterLensDistance()) {
-                TextView interlensText = (TextView) findViewById(R.id.interlensText);
+                TextView interlensText = findViewById(R.id.interlensText);
                 float interlensFloat = deviceParams.getInterLensDistance();
                 interlensText.setText(interlensFloat * 1000 + "mm");
             }
 
             if (deviceParams.getLeftEyeFieldOfViewAnglesCount() > 0) {
-                TextView FOVLeftView = (TextView) findViewById(R.id.FOVLeft);
+                TextView FOVLeftView = findViewById(R.id.FOVLeft);
                 float FOVLeftFloat = deviceParams.getLeftEyeFieldOfViewAngles(0);
                 FOVLeftView.setText(FOVLeftFloat + " degrees");
             }
             if (deviceParams.getLeftEyeFieldOfViewAnglesCount() > 1) {
-                TextView FOVRightView = (TextView) findViewById(R.id.FOVRight);
+                TextView FOVRightView = findViewById(R.id.FOVRight);
                 float FOVRightFloat = deviceParams.getLeftEyeFieldOfViewAngles(1);
                 FOVRightView.setText(FOVRightFloat + " degrees");
             }
             if (deviceParams.getLeftEyeFieldOfViewAnglesCount() > 2) {
-                TextView FOVBottomView = (TextView) findViewById(R.id.FOVBottom);
+                TextView FOVBottomView = findViewById(R.id.FOVBottom);
                 float FOVBottomFloat = deviceParams.getLeftEyeFieldOfViewAngles(2);
                 FOVBottomView.setText(FOVBottomFloat + " degrees");
             }
             if (deviceParams.getLeftEyeFieldOfViewAnglesCount() > 3) {
-                TextView FOVTopView = (TextView) findViewById(R.id.FOVTop);
+                TextView FOVTopView = findViewById(R.id.FOVTop);
                 float FOVTopFloat = deviceParams.getLeftEyeFieldOfViewAngles(3);
                 FOVTopView.setText(FOVTopFloat + " degrees");
             }
 
             // verticalAlignmentText
             if (deviceParams.hasVerticalAlignment()) {
-                TextView verticalAlignmentText = (TextView) findViewById(R.id.verticalAlignmnentText);
+                TextView verticalAlignmentText = findViewById(R.id.verticalAlignmnentText);
                 CardboardDevice.DeviceParams.VerticalAlignmentType verticalAlignment =
                         deviceParams.getVerticalAlignment();
                 switch (verticalAlignment) {
@@ -229,14 +229,14 @@ public class MainActivity extends AppCompatActivity {
 
             // trayToLensText
             if (deviceParams.hasTrayToLensDistance()) {
-                TextView trayToLensText = (TextView) findViewById(R.id.trayToLensText);
+                TextView trayToLensText = findViewById(R.id.trayToLensText);
                 float trayToLensFloat = deviceParams.getTrayToLensDistance();
                 trayToLensText.setText(trayToLensFloat * 1000 + "mm");
             }
 
             // hasMagnetText
             if (deviceParams.hasHasMagnet()) {
-                TextView hasMagnetText = (TextView) findViewById(R.id.hasMagnetText);
+                TextView hasMagnetText = findViewById(R.id.hasMagnetText);
                 if (deviceParams.getHasMagnet()) {
                     hasMagnetText.setText("TRUE");
                 } else {
@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
 
             // buttonTypeText
             if (deviceParams.hasPrimaryButton()) {
-                TextView buttonTypeText = (TextView) findViewById(R.id.buttonTypeText);
+                TextView buttonTypeText = findViewById(R.id.buttonTypeText);
                 CardboardDevice.DeviceParams.ButtonType buttonType =
                         deviceParams.getPrimaryButton();
                 switch (buttonType) {
@@ -272,8 +272,8 @@ public class MainActivity extends AppCompatActivity {
             // k2Text
             List<Float> distortions = deviceParams.getDistortionCoefficientsList();
             if (distortions.size() >= 2) {
-                TextView k1Text = (TextView) findViewById(R.id.k1Text);
-                TextView k2Text = (TextView) findViewById(R.id.k2Text);
+                TextView k1Text = findViewById(R.id.k1Text);
+                TextView k2Text = findViewById(R.id.k2Text);
                 float k1Float = distortions.get(0);
                 float k2Float = distortions.get(1);
                 k1Text.setText(k1Float + "");
@@ -283,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Force redraw
-        View rootView= (View) findViewById(R.id.rootView);
+        View rootView= findViewById(R.id.rootView);
         rootView.invalidate();
     }
 

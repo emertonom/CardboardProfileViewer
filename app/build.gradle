@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 27
 
     defaultConfig {
         applicationId "user.emertonom.cardboardprofileviewer"
-        minSdkVersion 16
-        targetSdkVersion 23
+        minSdkVersion 19
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
     }
@@ -21,8 +21,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
-    implementation 'com.android.support:appcompat-v7:23.2.0'
-    implementation 'com.android.support:design:23.1.0'
-    implementation 'com.google.protobuf:protobuf-java:3.0.0-beta-2'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.google.protobuf:protobuf-java:3.4.0'
     implementation 'com.google.android.gms:play-services-appindexing:9.8.0'
 }
